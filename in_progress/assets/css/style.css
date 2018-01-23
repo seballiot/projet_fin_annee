@@ -1,0 +1,33 @@
+#rep_msg{display: none;}
+.rating-stars ul {
+  list-style-type:none;
+  padding:0;
+  margin-top: 50px;
+}
+.rating-stars ul > li.star {
+  display:inline-block;
+}
+
+.rating-stars ul > li.star > i.fa {
+  font-size:1.3em;
+  color:#ccc;
+}
+
+.rating-stars ul > li.star.hover > i.fa {
+  color:#FFCC36;
+}
+
+.rating-stars ul > li.star.selected > i.fa {
+  color:#FFCC36;
+}
+.fa-star, .fa-star-o{
+  color: #ffcc00;
+  cursor: pointer;
+}
+.dropdown-toggle:after {
+    display:none;
+}
+.msg-box{
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+}
