@@ -42,7 +42,7 @@ function dd($var){
 function selectOne($table, $id) {
     $rowToGet = BDD::getInstance()->prepare('SELECT * FROM ' . $table . ' WHERE id_relation = :id');
     $rowToGet->execute(array("id" => $id));
-    $row = $rowToGet->fetch();
+    $row = $rowToGet->fetch(PDO::FETCH_OBJ);
     if(!$row) return false;
     else return $row;
 }
@@ -50,7 +50,7 @@ function selectOne($table, $id) {
 function selectOneChannel($table, $id) {
     $rowToGet = BDD::getInstance()->prepare('SELECT * FROM ' . $table . ' WHERE id_channel = :id');
     $rowToGet->execute(array("id" => $id));
-    $row = $rowToGet->fetch();
+    $row = $rowToGet->fetch(PDO::FETCH_OBJ);
     if(!$row) return false;
     else return $row;
 }
@@ -58,7 +58,7 @@ function selectOneChannel($table, $id) {
 function selectOnePost($table, $id) {
     $rowToGet = BDD::getInstance()->prepare('SELECT * FROM ' . $table . ' WHERE id_post = :id');
     $rowToGet->execute(array("id" => $id));
-    $row = $rowToGet->fetch();
+    $row = $rowToGet->fetch(PDO::FETCH_OBJ);
     if(!$row) return false;
     else return $row;
 }
@@ -66,7 +66,7 @@ function selectOnePost($table, $id) {
 function selectMessages($table, $id) {
     $rowToGet = BDD::getInstance()->prepare('SELECT * FROM ' . $table . ' WHERE id_channel = :id');
     $rowToGet->execute(array("id" => $id));
-    $row = $rowToGet->fetchAll();
+    $row = $rowToGet->fetchAll(PDO::FETCH_OBJ);
     if(!$row) return false;
     else return $row;
 }
@@ -74,21 +74,21 @@ function selectMessages($table, $id) {
 function selectComments($table, $id) {
     $rowToGet = BDD::getInstance()->prepare('SELECT * FROM ' . $table . ' WHERE id_post = :id');
     $rowToGet->execute(array("id" => $id));
-    $row = $rowToGet->fetchAll();
+    $row = $rowToGet->fetchAll(PDO::FETCH_OBJ);
     if(!$row) return false;
     else return $row;
 }
 
 function selectAll($table) {
     $rowsToGet = BDD::getInstance()->query('SELECT * FROM ' . $table);
-    $rows = $rowsToGet->fetchAll();
+    $rows = $rowsToGet->fetchAll(PDO::FETCH_OBJ);
     if(!$rows) return false;
     else return $rows;
 }
 function idToUserInfo($id_user){
     $req = BDD::getInstance()->prepare('SELECT * FROM users WHERE id_user = :id_user');
     $req->execute(array("id_user" => $id_user));
-    $row = $req->fetch();
+    $row = $req->fetch(PDO::FETCH_OBJ);
     if(!$row) return false;
     else return $row;
 }

@@ -20,7 +20,7 @@ class Vote {
   public function voting($id_user, $vote){
     $req = BDD::getInstance()->prepare("SELECT id_vote, vote FROM vote WHERE id_post=? AND id_user=?");
     $req->execute(array($this->id_post, $id_user));
-    $user_voted = $req->fetch();
+    $user_voted = $req->fetch(PDO::FETCH_OBJ);
 
     // SI L'UTILISATEUR A DÉJÀ VOTÉ POUR CET ARTICLE
     if($user_voted){
@@ -50,7 +50,7 @@ class Vote {
   private function updateStatsPost(){
     $req = BDD::getInstance()->prepare("SELECT COUNT(id_vote) as count_vote, SUM(vote) as tot_vote FROM vote WHERE id_post=? GROUP BY id_post");
     $req->execute(array($this->id_post));
-    $stats_post = $req->fetch();
+    $stats_post = $req->fetch(PDO::FETCH_OBJ);
     $rating = $stats_post->tot_vote / $stats_post->count_vote;
     $req = BDD::getInstance()->query("UPDATE posts SET rating = ".$rating.", count_vote = ".$stats_post->count_vote." WHERE id_post = ".$this->id_post);
     return true;

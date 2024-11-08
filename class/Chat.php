@@ -26,7 +26,7 @@ class Chat {
   public function getLastMessage($id_msg){
     $req = BDD::getInstance()->prepare('SELECT * FROM channel_msg WHERE id_channel = :id_channel AND id_msg > :id_message ORDER BY created_at ASC');
     $req->execute(array('id_channel' => $this->id_channel, 'id_message' => $id_msg));
-    $lastMessages = $req->fetchAll();
+    $lastMessages = $req->fetchAll(PDO::FETCH_OBJ);
     $content = '';
     foreach($lastMessages as $lastMessage){
       $user = idToUserInfo($lastMessage->id_user);

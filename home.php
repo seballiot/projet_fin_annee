@@ -7,7 +7,7 @@ $req->execute(array(
   "id_user1" => $_SESSION['user']['id'],
   "id_user2" => $_SESSION['user']['id']
 ));
-$datas = $req->fetchAll();
+$datas = $req->fetchAll(PDO::FETCH_OBJ);
 $user_check[] = $_SESSION['user']['id'];
 ?>
 

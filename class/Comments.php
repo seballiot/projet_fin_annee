@@ -20,7 +20,7 @@ class Comments {
   private function updateCountComment($nb){
     $req = BDD::getInstance()->prepare('SELECT count_comments FROM posts WHERE id_post = ?');
     $req->execute([$this->id_post]);
-    $count_comments = $req->fetch()->count_comments;
+    $count_comments = $req->fetch(PDO::FETCH_OBJ)->count_comments;
     $req = BDD::getInstance()->prepare('UPDATE posts SET count_comments = ? WHERE id_post = ?');
     $req->execute(array(($count_comments + $nb), $this->id_post));
   }
@@ -36,7 +36,7 @@ class Comments {
   public function getComments(){
     $req = BDD::getInstance()->prepare('SELECT * FROM comments WHERE id_post = :id');
     $req->execute(array("id" => $this->id_post));
-    $comments = $req->fetchAll();
+    $comments = $req->fetchAll(PDO::FETCH_OBJ);
     if($comments){
       $comments_by_id = [];
       foreach ($comments as $comment) { //commentaires indéxés par ids
@@ -100,7 +100,7 @@ class Comments {
     if($req->rowCount() == 0){
       throw new Exception('Ce commentaire n\'existe pas');
     }
-    $comment = $req->fetch();
+    $comment = $req->fetch(PDO::FETCH_OBJ);
 
     // On supprime le commentaire en question
     BDD::getInstance()->prepare('DELETE FROM comments WHERE id_comment =?')->execute([$id_comment]);
